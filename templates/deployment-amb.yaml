@@ -1,0 +1,145 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  name: {{ include "gnosis-bridge.fullname" . }}-amb
+  labels:
+    {{- include "gnosis-bridge.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "gnosis-bridge.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: amb
+  template:
+    metadata:
+      labels:
+        {{- include "gnosis-bridge.labels" . | nindent 8 }}
+        app.kubernetes.io/component: amb
+    spec:
+      serviceAccountName: {{ include "gnosis-bridge.serviceAccountName" . }}
+      containers:
+        - name: bridge-request-amb
+          image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
+          command:
+            - yarn
+            - watcher:signature-request
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
+          {{- if .Values.amb.resources.bridgeRequest }}
+          {{- with .Values.amb.resources.bridgeRequest }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: bridge-affirmation-amb
+          image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
+          command:
+            - yarn
+            - watcher:affirmation-request
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
+          {{- if .Values.amb.resources.bridgeAffirmation }}
+          {{- with .Values.amb.resources.bridgeAffirmation }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: sender-home-amb
+          image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
+          command:
+            - yarn
+            - sender:home
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
+          {{- if .Values.amb.resources.senderHome }}
+          {{- with .Values.amb.resources.senderHome }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: sender-foreign-amb
+          image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
+          command:
+            - yarn
+            - sender:foreign
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
+          {{- if .Values.amb.resources.senderForeign }}
+          {{- with .Values.amb.resources.senderForeign }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: sender-shutdown-amb
+          image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
+          command:
+            - yarn
+            - manager:shutdown
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+          {{- if .Values.amb.resources.shutdown }}
+          {{- with .Values.amb.resources.shutdown }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}

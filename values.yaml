@@ -1,0 +1,129 @@
+
+## @section Common parameters
+##
+
+## @param nameOverride String to partially override common.names.fullname
+##
+nameOverride: ""
+## @param fullnameOverride String to fully override common.names.fullname
+##
+fullnameOverride: ""
+
+serviceAccount:
+  ## @param serviceAccount.create Boolean to specify whether a service account should be created
+  ##
+  create: true
+  ## @param serviceAccount.automount Boolean to specify whether to automatically mount a ServiceAccount's API credentials
+  ##
+  automount: true
+  ## @param serviceAccount.annotations Object to add annotations to the service account
+  ##
+  annotations: {}
+  ## @param serviceAccount.name The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+  ##
+  name: ""
+
+## @section AMB Parameters
+##
+
+amb:
+  image:
+    ## @param amb.image.repository The AMB image repository
+    ##
+    repository: gnosischain/tokenbridge-oracle
+    ## @param amb.image.pullPolicy The AMB image pull policy
+    ##
+    pullPolicy: Always
+    ## @param amb.image.tag The AMB image tag
+    ##
+    tag: ""
+  oracleValidator:
+    ## @param amb.oracleValidator.address The AMB oracle validator address
+    ##
+    address: ""
+    ## @param amb.oracleValidator.privateKey The AMB oracle validator private key
+    ##
+    privateKey: ""
+  resources:
+    ## @param amb.resources.bridgeRequest Resource requests and limits for the AMB bridge request container
+    ##
+    bridgeRequest: {}
+    ## @param amb.resources.bridgeAffirmation Resource requests and limits for the AMB bridge affirmation container
+    ##
+    bridgeAffirmation: {}
+    ## @param amb.resources.senderHome Resource requests and limits for the AMB sender home container
+    ##
+    senderHome: {}
+    ## @param amb.resources.senderForeign Resource requests and limits for the AMB sender foreign container
+    ##
+    senderForeign: {}
+    ## @param amb.resources.shutdown Resource requests and limits for the AMB shutdown container
+    ##
+    shutdown: {}
+
+## @section XDAI Parameters
+##
+
+xdai:
+  image:
+    ## @param xdai.image.repository The XDAI image repository
+    ##
+    repository: gnosischain/tokenbridge-oracle
+    ## @param xdai.image.pullPolicy The XDAI image pull policy
+    ##
+    pullPolicy: Always
+    ## @param xdai.image.tag The XDAI image tag
+    ##
+    tag: ""
+  oracleValidator:
+    ## @param xdai.oracleValidator.address The XDAI oracle validator address
+    ##
+    address: ""
+    ## @param xdai.oracleValidator.privateKey The XDAI oracle validator private key
+    ##
+    privateKey: ""
+  resources:
+    ## @param xdai.resources.bridgeRequest Resource requests and limits for the XDAI bridge request container
+    ##
+    bridgeRequest: {}
+    ## @param xdai.resources.bridgeAffirmation Resource requests and limits for the XDAI bridge affirmation container
+    ##
+    bridgeAffirmation: {}
+    ## @param xdai.resources.senderHome Resource requests and limits for the XDAI sender home container
+    ##
+    senderHome: {}
+    ## @param xdai.resources.senderForeign Resource requests and limits for the XDAI sender foreign container
+    ##
+    senderForeign: {}
+    ## @param xdai.resources.shutdown Resource requests and limits for the XDAI shutdown container
+    ##
+    shutdown: {}
+
+## @section External components
+##
+
+rabbitmq:
+  ## @param rabbitmq.namespace The RabbitMQ namespace
+  ##
+  namespace: ""
+  ## @param rabbitmq.clusterName The RabbitMQ cluster name
+  ##
+  clusterName: ""
+  ## @param rabbitmq.username The RabbitMQ username
+  ##
+  username: ""
+  ## @param rabbitmq.password The RabbitMQ password
+  ##
+  password: ""
+
+redis:
+  ## @param redis.resources Resource requests and limits for the Redis instance
+  ##
+  resources: {}
+
+## @section Config parameters
+
+config:
+  ## @param config.envVars Environment variables to set in the ConfigMap
+  ##
+  envVars: {}

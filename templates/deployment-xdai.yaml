@@ -1,0 +1,145 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  name: {{ include "gnosis-bridge.fullname" . }}-xdai
+  labels:
+    {{- include "gnosis-bridge.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "gnosis-bridge.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: xdai
+  template:
+    metadata:
+      labels:
+        {{- include "gnosis-bridge.labels" . | nindent 8 }}
+        app.kubernetes.io/component: xdai
+    spec:
+      serviceAccountName: {{ include "gnosis-bridge.serviceAccountName" . }}
+      containers:
+        - name: bridge-request-xdai
+          image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
+          command:
+            - yarn
+            - watcher:signature-request
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
+          {{- if .Values.xdai.resources.bridgeRequest }}
+          {{- with .Values.xdai.resources.bridgeRequest }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: bridge-affirmation-xdai
+          image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
+          command:
+            - yarn
+            - watcher:affirmation-request
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
+          {{- if .Values.xdai.resources.bridgeAffirmation }}
+          {{- with .Values.xdai.resources.bridgeAffirmation }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: sender-home-xdai
+          image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
+          command:
+            - yarn
+            - sender:home
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
+          {{- if .Values.xdai.resources.senderHome }}
+          {{- with .Values.xdai.resources.senderHome }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: sender-foreign-xdai
+          image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
+          command:
+            - yarn
+            - sender:foreign
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
+          {{- if .Values.xdai.resources.senderForeign }}
+          {{- with .Values.xdai.resources.senderForeign }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}
+        - name: sender-shutdown-xdai
+          image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
+          command:
+            - yarn
+            - manager:shutdown
+          envFrom:
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+          {{- if .Values.xdai.resources.shutdown }}
+          {{- with .Values.xdai.resources.shutdown }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- else }}
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          {{- end }}

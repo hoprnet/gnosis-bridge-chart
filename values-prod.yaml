@@ -1,0 +1,16 @@
+
+rabbitmq:
+  namespace: rabbitmq
+  clusterName: rabbitmq-ha-cluster
+  username: hopr-gnosis-bridge
+
+config:
+  envVars:
+    ORACLE_LOG_LEVEL: "debug"
+    COMMON_HOME_RPC_URL: https://rpc-provider.hoprnet.org
+    COMMON_FOREIGN_RPC_URL: https://rpc-provider-ethereum.hoprnet.org
+    ORACLE_FOREIGN_ARCHIVE_RPC_URL: https://rpc-provider-ethereum-archival.hoprnet.org
+    # latest block number in Gnosis Chain    
+    ORACLE_HOME_START_BLOCK: "42974700"
+    # latest block number in Ethereum
+    ORACLE_FOREIGN_START_BLOCK: "23726268"

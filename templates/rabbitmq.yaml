@@ -1,0 +1,43 @@
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Vhost
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  name: {{ .Values.rabbitmq.username }}
+  namespace: {{ required "rabbitmq.namespace is required" .Values.rabbitmq.namespace | quote }}
+spec:
+  name: {{ required "rabbitmq.username is required" .Values.rabbitmq.username | quote }}
+  rabbitmqClusterReference:
+    name: {{ required "rabbitmq.clusterName is required" .Values.rabbitmq.clusterName | quote }}
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: User
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  name: {{ .Values.rabbitmq.username }}
+  namespace: {{ .Values.rabbitmq.namespace }}
+spec:
+  importCredentialsSecret:
+    name: {{ include "gnosis-bridge.fullname" . }}-rabbitmq
+  rabbitmqClusterReference:
+    name: {{ .Values.rabbitmq.clusterName }}
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Permission
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: {{ .Values.rabbitmq.username }}
+  namespace: {{ .Values.rabbitmq.namespace }}
+spec:
+  permissions:
+    configure: .*
+    read: .*
+    write: .*
+  userReference:
+    name: {{ .Values.rabbitmq.username }}
+  vhost: {{ .Values.rabbitmq.username }}
+  rabbitmqClusterReference:
+    name: {{ .Values.rabbitmq.clusterName }}
