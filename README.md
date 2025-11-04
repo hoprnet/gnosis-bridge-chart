@@ -2,6 +2,17 @@
 
 This is a helm chart to install Gnosis Bridge validator
 
+## Developing
+
+There are common actions wrapped in the `just` tool:
+- `just template`: Prints the parsed templates for the chart
+- `just package`: Packages the helm chart in a tar.gz file
+- `just login`: Connects to the helm chart registry required to publish new versions
+- `just push`: Publishes a new version into the helm chart registry
+- `just lint`: Lint the helm chart
+- `just docs`: Updates the docs for the helm-chart
+
+
 ## Parameters
 
 ### Common parameters
