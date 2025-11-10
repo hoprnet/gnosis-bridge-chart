@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  name: {{ include "gnosis-bridge.fullname" . }}-xdai
+data:
+  COMMON_HOME_BRIDGE_ADDRESS: "0x7301CFA0e1756B71869E93d4e4Dca5c7d0eb0AA6"
+  COMMON_FOREIGN_BRIDGE_ADDRESS: "0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016"
+{{- with .Values.xdai.envVars }}
+{{ toYaml . | indent 2 }}
+{{ end }}

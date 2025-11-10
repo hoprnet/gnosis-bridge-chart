@@ -29,6 +29,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-amb
           {{- if .Values.amb.resources.bridgeRequest }}

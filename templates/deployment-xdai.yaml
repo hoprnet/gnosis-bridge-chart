@@ -104,6 +104,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.senderForeign }}

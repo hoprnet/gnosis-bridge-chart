@@ -40,6 +40,7 @@ There are common actions wrapped in the `just` tool:
 | `amb.resources.senderHome`        | Resource requests and limits for the AMB sender home container        | `{}`                             |
 | `amb.resources.senderForeign`     | Resource requests and limits for the AMB sender foreign container     | `{}`                             |
 | `amb.resources.shutdown`          | Resource requests and limits for the AMB shutdown container           | `{}`                             |
+| `amb.envVars`                     | Environment variables to set in the ConfigMap for AMB                 | `{}`                             |
 
 ### XDAI Parameters
 
@@ -55,6 +56,7 @@ There are common actions wrapped in the `just` tool:
 | `xdai.resources.senderHome`        | Resource requests and limits for the XDAI sender home container        | `{}`                             |
 | `xdai.resources.senderForeign`     | Resource requests and limits for the XDAI sender foreign container     | `{}`                             |
 | `xdai.resources.shutdown`          | Resource requests and limits for the XDAI shutdown container           | `{}`                             |
+| `xdai.envVars`                     | Environment variables to set in the ConfigMap for XDAI                 | `{}`                             |
 
 ### External components
 

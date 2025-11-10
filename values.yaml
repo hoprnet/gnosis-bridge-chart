@@ -60,6 +60,9 @@ amb:
     ## @param amb.resources.shutdown Resource requests and limits for the AMB shutdown container
     ##
     shutdown: {}
+  ## @param amb.envVars Environment variables to set in the ConfigMap for AMB
+  ##
+  envVars: {}
 
 ## @section XDAI Parameters
 ##
@@ -98,6 +101,9 @@ xdai:
     ## @param xdai.resources.shutdown Resource requests and limits for the XDAI shutdown container
     ##
     shutdown: {}
+  ## @param xdai.envVars Environment variables to set in the ConfigMap for XDAI
+  ##
+  envVars: {}
 
 ## @section External components
 ##

@@ -2,5 +2,5 @@ apiVersion: v2
 name: gnosis-bridge
 description: A Helm chart for Gnosis Bridge Validator
 type: application
-version: 0.1.0-rc.8
+version: 0.1.0-rc.9
 appVersion: "v3.10.0"
