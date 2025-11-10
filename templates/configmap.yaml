@@ -6,7 +6,6 @@ metadata:
   name: {{ include "gnosis-bridge.fullname" . }}
 data:
   NODE_ENV: "production"
-  ORACLE_BRIDGE_MODE: "ARBITRARY_MESSAGE"
   ORACLE_HOME_RPC_POLLING_INTERVAL: "5000"
   ORACLE_FOREIGN_RPC_POLLING_INTERVAL: "5000"
   ORACLE_TX_REDUNDANCY: "true"

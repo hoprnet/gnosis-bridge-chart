@@ -20,7 +20,7 @@ spec:
     spec:
       serviceAccountName: {{ include "gnosis-bridge.serviceAccountName" . }}
       containers:
-        - name: bridge-request-amb
+        - name: bridge-request
           image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
           command:
@@ -47,7 +47,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: bridge-affirmation-amb
+        - name: bridge-affirmation
           image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
           command:
@@ -56,6 +56,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-amb
           {{- if .Values.amb.resources.bridgeAffirmation }}
@@ -72,7 +74,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: sender-home-amb
+        - name: sender-home
           image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
           command:
@@ -81,6 +83,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-amb
           {{- if .Values.amb.resources.senderHome }}
@@ -97,7 +101,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: sender-foreign-amb
+        - name: sender-foreign
           image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
           command:
@@ -106,6 +110,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-amb
           {{- if .Values.amb.resources.senderForeign }}
@@ -122,7 +128,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: sender-shutdown-amb
+        - name: sender-shutdown
           image: "{{ .Values.amb.image.repository }}:{{ .Values.amb.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.amb.image.pullPolicy }}
           command:
@@ -131,6 +137,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-amb
           {{- if .Values.amb.resources.shutdown }}
           {{- with .Values.amb.resources.shutdown }}
           resources:

@@ -20,7 +20,7 @@ spec:
     spec:
       serviceAccountName: {{ include "gnosis-bridge.serviceAccountName" . }}
       containers:
-        - name: bridge-request-xdai
+        - name: bridge-request
           image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
           command:
@@ -29,6 +29,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.bridgeRequest }}
@@ -45,7 +47,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: bridge-affirmation-xdai
+        - name: bridge-affirmation
           image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
           command:
@@ -54,6 +56,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.bridgeAffirmation }}
@@ -70,7 +74,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: sender-home-xdai
+        - name: sender-home
           image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
           command:
@@ -79,6 +83,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.senderHome }}
@@ -95,7 +101,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: sender-foreign-xdai
+        - name: sender-foreign
           image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
           command:
@@ -122,7 +128,7 @@ spec:
               cpu: 100m
               memory: 128Mi
           {{- end }}
-        - name: sender-shutdown-xdai
+        - name: sender-shutdown
           image: "{{ .Values.xdai.image.repository }}:{{ .Values.xdai.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.xdai.image.pullPolicy }}
           command:
@@ -131,6 +137,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}
+            - configMapRef:
+                name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.shutdown }}
           {{- with .Values.xdai.resources.shutdown }}
           resources:
