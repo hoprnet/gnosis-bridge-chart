@@ -1,1 +1,3 @@
 *.tgz
+* values-prod.yaml
+secrets-prod.yaml
