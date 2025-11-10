@@ -4,10 +4,10 @@ login:
   helm registry login -u oauth2accesstoken --password "$token" https://europe-west3-docker.pkg.dev
 
 template:
-  helm template hopr-gnosis-bridge -f values-prod.yaml -f secrets-prod.yaml .
+  helm template hopr-gnosis-bridge -f values-example.yaml
 
 lint:
-	helm lint -f values-prod.yaml -f secrets-prod.yaml .
+	helm lint -f values-example.yaml .
 
 docs:
   #npm install -g @bitnami/readme-generator-for-helm@2.7.2

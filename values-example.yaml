@@ -1,0 +1,27 @@
+
+rabbitmq:
+  namespace: rabbitmq
+  clusterName: rabbitmq-ha-cluster
+  username: hopr-gnosis-bridge
+  password: "MyRabbitMQPassword"
+
+amb:
+  oracleValidator:
+    address: "0x1234567890abcdef"
+    privateKey: "SomeVerySecretPrivateKey"
+
+xdai:
+  oracleValidator:
+    address: "0x1234567890abcdef"
+    privateKey: "SomeVerySecretPrivateKey"
+
+config:
+  envVars:
+    ORACLE_LOG_LEVEL: "debug"
+    COMMON_HOME_RPC_URL: https://some.gnosis.rpc.url
+    COMMON_FOREIGN_RPC_URL: https://some.ethereum.rpc.url
+    ORACLE_FOREIGN_ARCHIVE_RPC_URL: https://some.ethereum-archive.rpc.url
+    # latest block number in Gnosis Chain    
+    ORACLE_HOME_START_BLOCK: "42974700"
+    # latest block number in Ethereum
+    ORACLE_FOREIGN_START_BLOCK: "23726268"
