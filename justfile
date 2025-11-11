@@ -4,7 +4,7 @@ login:
   helm registry login -u oauth2accesstoken --password "$token" https://europe-west3-docker.pkg.dev
 
 template:
-  helm template hopr-gnosis-bridge -f values-example.yaml
+  helm template hopr-gnosis-bridge -f values-example.yaml .
 
 lint:
 	helm lint -f values-example.yaml .
