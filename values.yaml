@@ -63,6 +63,9 @@ amb:
   ## @param amb.envVars Environment variables to set in the ConfigMap for AMB
   ##
   envVars: {}
+  ## @param amb.secretEnvVars Environment variables to set in the Secret for AMB
+  ##
+  secretEnvVars: {}
 
 ## @section XDAI Parameters
 ##
@@ -104,6 +107,9 @@ xdai:
   ## @param xdai.envVars Environment variables to set in the ConfigMap for XDAI
   ##
   envVars: {}
+  ## @param xdai.secretEnvVars Environment variables to set in the Secret for XDAI
+  ##
+  secretEnvVars: {}
 
 ## @section External components
 ##
@@ -130,6 +136,18 @@ redis:
 ## @section Config parameters
 
 config:
+  ## @param config.homeRpcUrl The Gnosis RPC provider URL
+  ##
+  homeRpcUrl: ""
+  ## @param config.foreignRpcUrl The Ethereum RPC provider URL
+  ##
+  foreignRpcUrl: ""
+  ## @param config.foreignArchiveRpcUrl The Ethereum archive RPC provider URL
+  ##
+  foreignArchiveRpcUrl: ""
   ## @param config.envVars Environment variables to set in the ConfigMap
   ##
   envVars: {}
+  ## @param config.secretEnvVars Environment variables to set in the Secret
+  ##
+  secretEnvVars: {}

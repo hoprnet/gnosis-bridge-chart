@@ -32,6 +32,8 @@ spec:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
             - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.bridgeRequest }}
           {{- with .Values.xdai.resources.bridgeRequest }}
@@ -58,6 +60,8 @@ spec:
                 name: {{ include "gnosis-bridge.fullname" . }}
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
             - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.bridgeAffirmation }}
@@ -86,6 +90,8 @@ spec:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
             - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.senderHome }}
           {{- with .Values.xdai.resources.senderHome }}
@@ -113,6 +119,8 @@ spec:
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
             - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
+            - secretRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
           {{- if .Values.xdai.resources.senderForeign }}
           {{- with .Values.xdai.resources.senderForeign }}
@@ -139,6 +147,8 @@ spec:
                 name: {{ include "gnosis-bridge.fullname" . }}
             - configMapRef:
                 name: {{ include "gnosis-bridge.fullname" . }}-xdai
+            - secretRef:
+                name: {{ include "gnosis-bridge.fullname" . }}
           {{- if .Values.xdai.resources.shutdown }}
           {{- with .Values.xdai.resources.shutdown }}
           resources:

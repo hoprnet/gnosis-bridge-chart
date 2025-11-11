@@ -41,6 +41,7 @@ There are common actions wrapped in the `just` tool:
 | `amb.resources.senderForeign`     | Resource requests and limits for the AMB sender foreign container     | `{}`                             |
 | `amb.resources.shutdown`          | Resource requests and limits for the AMB shutdown container           | `{}`                             |
 | `amb.envVars`                     | Environment variables to set in the ConfigMap for AMB                 | `{}`                             |
+| `amb.secretEnvVars`               | Environment variables to set in the Secret for AMB                    | `{}`                             |
 
 ### XDAI Parameters
 
@@ -57,6 +58,7 @@ There are common actions wrapped in the `just` tool:
 | `xdai.resources.senderForeign`     | Resource requests and limits for the XDAI sender foreign container     | `{}`                             |
 | `xdai.resources.shutdown`          | Resource requests and limits for the XDAI shutdown container           | `{}`                             |
 | `xdai.envVars`                     | Environment variables to set in the ConfigMap for XDAI                 | `{}`                             |
+| `xdai.secretEnvVars`               | Environment variables to set in the Secret for XDAI                    | `{}`                             |
 
 ### External components
 
@@ -70,6 +72,10 @@ There are common actions wrapped in the `just` tool:
 
 ### Config parameters
 
-| Name             | Description                                   | Value |
-| ---------------- | --------------------------------------------- | ----- |
-| `config.envVars` | Environment variables to set in the ConfigMap | `{}`  |
+| Name                          | Description                                   | Value |
+| ----------------------------- | --------------------------------------------- | ----- |
+| `config.homeRpcUrl`           | The Gnosis RPC provider URL                   | `""`  |
+| `config.foreignRpcUrl`        | The Ethereum RPC provider URL                 | `""`  |
+| `config.foreignArchiveRpcUrl` | The Ethereum archive RPC provider URL         | `""`  |
+| `config.envVars`              | Environment variables to set in the ConfigMap | `{}`  |
+| `config.secretEnvVars`        | Environment variables to set in the Secret    | `{}`  |
