@@ -16,11 +16,11 @@ xdai:
     privateKey: "SomeVerySecretPrivateKey"
 
 config:
+  homeRpcUrl: "https://some.gnosis.rpc.url"
+  foreignRpcUrl: "https://some.ethereum.rpc.url"
+  foreignArchiveRpcUrl: "https://some.ethereum-archive.rpc.url"
   envVars:
     ORACLE_LOG_LEVEL: "debug"
-    COMMON_HOME_RPC_URL: https://some.gnosis.rpc.url
-    COMMON_FOREIGN_RPC_URL: https://some.ethereum.rpc.url
-    ORACLE_FOREIGN_ARCHIVE_RPC_URL: https://some.ethereum-archive.rpc.url
     # latest block number in Gnosis Chain    
     ORACLE_HOME_START_BLOCK: "42974700"
     # latest block number in Ethereum
