@@ -14,7 +14,9 @@ concurrency:
 jobs:
   # Keeps the `Merge gate` check name present in every repository so the
   # ruleset can require it uniformly (hoprnet/hopr-devops#372). It grows
-  # a `needs:` list when the repository gets real PR jobs.
+  # When real PR jobs exist, replace the echo step with the
+  # re-actors/alls-green action, list those jobs in `needs:`, and pass
+  # `jobs: ${{ toJSON(needs) }}` so the check reflects their results.
   merge-gate:
     name: Merge gate
     if: always()
