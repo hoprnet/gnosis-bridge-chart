@@ -1,0 +1,26 @@
+name: PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  merge_group:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.event.pull_request.number || github.ref }}-pr
+  cancel-in-progress: true
+
+jobs:
+  # Keeps the `Merge gate` check name present in every repository so the
+  # ruleset can require it uniformly (hoprnet/hopr-devops#372). It grows
+  # When real PR jobs exist, replace the echo step with the
+  # re-actors/alls-green action, list those jobs in `needs:`, and pass
+  # `jobs: ${{ toJSON(needs) }}` so the check reflects their results.
+  merge-gate:
+    name: Merge gate
+    if: always()
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - run: echo "no PR checks in this repository"
